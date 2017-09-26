@@ -5,8 +5,8 @@ Repo di appoggio per workshop (da cancellare)
 
 ## Cycle 0 (briefing)
 - Presentazione del Workshop
-- Unity, nice to meet you (come funziona unity in max 600 secondi)
-- One screen game design document  []
+- Unity, nice to meet you
+- [One screen game design document](http://msdosgames.com/wp-content/uploads/2015/11/Bubble-Bobble-dos-game.jpg)
 - ...e via di agilità!!!
 
 ## Cycle 1
@@ -19,7 +19,7 @@ Repo di appoggio per workshop (da cancellare)
 
 ## Cycle 2
 - Fix interaction with blocks during jump
-- Add graphic on player and level ([reference](https://www.spriters-resource.com/resources/sheets/13/14077.png))
+- Add graphic on player and level ([reference1](https://www.spriters-resource.com/resources/sheets/13/14077.png)[reference2](https://www.spriters-resource.com/resources/sheets/13/14077.png))
 - Player (minimal) state machine
 
 
