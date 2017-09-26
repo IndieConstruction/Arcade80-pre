@@ -15,7 +15,7 @@ Repo di appoggio per workshop (da cancellare)
 - Player input :: Jump
 - Player gravity
 - Implement physical collisions
-- Manual Level design
+- Manual Level design (32x25)
 
 ## Cycle 2
 - Fix interaction with blocks during jump

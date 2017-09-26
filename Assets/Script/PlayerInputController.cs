@@ -1,25 +1,72 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInputController : MonoBehaviour {
 
+    #region properties
+
     public float MovementSpeed = 0.1f;
     public float JumpForce = 0.1f;
     public float JumpDurationTime = 1.0f;
-    float jumpCounter = 0;
-    JumpState CurrentJumpState = JumpState.jump_down;
 
-    public UnityEngine.UI.Text text;
+    float jumpCounter = 0;
+    Animator animator;
+    BoxCollider2D boxCollider;
+
+    private JumpState _currentJumpState;
+
+    public JumpState CurrentJumpState {
+        get { return _currentJumpState; }
+        set {
+            if(_currentJumpState != value) {
+                _currentJumpState = value;
+                OnJumpStateChanged();
+            }
+        }
+    }
+
+
+
+    private State _currentState;
+    /// <summary>
+    /// 
+    /// </summary>
+    public State CurrentState {
+        get { return _currentState; }
+        set {
+            if(_currentState != value) { 
+                _currentState = value;
+                OnStateChanged();
+            }
+        }
+    }
+    
+    public UnityEngine.UI.Text debugText;
+
+    #endregion
+
+    #region lifecycle
+
+    private void Start() {
+        animator = GetComponentInChildren<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
+    }
+
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         checkJumpState();
         if (Input.GetKey(KeyCode.A)) {
             // move left
             transform.position -= new Vector3(MovementSpeed, 0);
+            CurrentState = State.walk_l;
         } else if (Input.GetKey(KeyCode.D)) {
             // move right
             transform.position += new Vector3(MovementSpeed, 0);
+            CurrentState = State.walk_r;
+        } else {
+            CurrentState = State.idle;
         }
     }
 
@@ -28,7 +75,7 @@ public class PlayerInputController : MonoBehaviour {
         switch (CurrentJumpState) {
             case JumpState.no_jump:
                 // posso iniziare a saltare
-                if (Input.GetKeyDown(KeyCode.O)) {
+                if (Input.GetKey(KeyCode.O)) {
                     jumpCounter = JumpDurationTime;
                     CurrentJumpState = JumpState.jump_up;
                 }
@@ -49,23 +96,38 @@ public class PlayerInputController : MonoBehaviour {
                 break;
         }
 
-        text.text = jumpCounter.ToString();
+        if(debugText)
+            debugText.text = jumpCounter.ToString();
     }
 
+    #endregion
+
+    #region Events
+
+    private void OnStateChanged() {
+        Debug.Log("State Changed: " + CurrentState);
+        animator.SetInteger("CurrentState", (int)CurrentState);
+    }
+
+    private void OnJumpStateChanged() {
+        switch (CurrentJumpState) {
+            case JumpState.jump_up:
+                boxCollider.enabled = false;
+                break;
+            case JumpState.jump_down:
+            case JumpState.no_jump:
+                boxCollider.enabled = true;
+                break;
+            default:
+                break;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        CurrentJumpState = JumpState.no_jump;
+        
     }
 
-    private void OnTriggerStay2D(Collider2D collision) {
-        CurrentJumpState = JumpState.no_jump;
-    }
-
-
-
-    //    Debug.Log("On Collisione ")
-    //    CurrentJumpState = JumpState.no_jump;
-    //}
+    #endregion
 
     #region State Machine
 
@@ -77,6 +139,8 @@ public class PlayerInputController : MonoBehaviour {
 
     public enum State {
         idle,
+        walk_l,
+        walk_r,
     }
 
     #endregion
