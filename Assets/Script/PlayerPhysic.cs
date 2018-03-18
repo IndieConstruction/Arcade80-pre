@@ -47,7 +47,6 @@ public class PlayerPhysic : MonoBehaviour {
         animator = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
     void FixedUpdate() {
         // Movement
         if (Input.GetKey(KeyCode.A)) {

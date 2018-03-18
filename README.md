@@ -19,7 +19,7 @@ Repo di appoggio per workshop (da cancellare)
 
 ## Cycle 2
 - Fix interaction with blocks during jump
-- Add graphic on player and level ([reference1](https://www.spriters-resource.com/resources/sheets/13/14077.png)[reference2](https://www.spriters-resource.com/resources/sheets/13/14077.png))
+- Add graphic on player and level ([reference1](https://github.com/IndieConstruction/Arcade80/blob/master/Resources/SS1.png)[reference2](https://github.com/IndieConstruction/Arcade80/blob/master/Resources/SS2.PNG))
 - Player (minimal) state machine
 
 
@@ -28,4 +28,4 @@ Repo di appoggio per workshop (da cancellare)
 - Enemies (minimal) state machine
 - Add player bubble shoot
 - Bubble behavior
-- Gamemanager
+- GameManager
